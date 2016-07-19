@@ -1,4 +1,4 @@
-<div id="carriots-graph"></div>
+<div id="carriots-graph" style="max-width: 500px;margin:auto;"></div>
 <script src="https://www.carriots.com/js/graphs.js"></script>
 <script>
     var carriots = {
@@ -11,12 +11,79 @@
      'query[device]': 'yun@memolipd',
     'query[sort]': '_id',
 	'query[order]': 'desc',
-	'query[max]': '20'
+	'query[max]': '200'
 	};
 </script>
 
-<div id="carriots-graph"></div>
-<script src="https://www.carriots.com/js/graphs.js"></script>
+<div id="carriots-graph-2" style="max-width: 500px;margin:auto;"></div>
+<script>
+	(function() {
+    var f = document.getElementsByTagName("body")[0]
+      , k = ["id"];
+    serialize = function(b) {
+        var a = [], d;
+        for (d in b)
+            -1 === k.indexOf(d) && a.push(encodeURIComponent(d) + "=" + encodeURIComponent(b[d]));
+        return a.join("&")
+    }
+    ;
+    (function() {
+        window.onload = function() {
+            function b(d, g) {
+                var c = document.createElement("script")
+                  , b = "undefined" != typeof g.id ? g.id : "carriots-graph-2";
+                name = "carr" + Math.floor(1000001 * Math.random());
+                var a = "?callback=" + name + "&" + serialize(g);
+                c.src = "https://api.carriots.com/streams/" + a;
+                f.appendChild(c);
+                window[name] = function(e) {
+                    d(e, g, c, b)
+                }
+            }
+            function a() {
+                if ("[object Array]" !== Object.prototype.toString.call(carriots))
+                    "undefined" !== typeof carriots.mime && b(carriots_callback, carriots);
+                else
+                    for (length = carriots.length,
+                    i = 0; i < length; i++)
+                        "undefined" !== typeof carriots[i].mime && b(carriots_callback, carriots[i])
+            }
+            carriots_callback = function(d, b, c, a) {
+                function h(b) {
+                    var a = document.createElement("script");
+                    a.async = !1;
+                    a.type = "text/javascript";
+                    var d = e[b].innerText || e[b].textContent;
+                    d ? a.text = d.replace(/\n/g, "") : a.src = e[b].getAttribute("xlink:href");
+                    if ("undefined" != typeof e[--b]) {
+                        var c = h(b--);
+                        a.onreadystatechange = a.onload = function() {
+                            var b = a.readyState;
+                            !c || c.done || b || (c.done = !0,
+                            c())
+                        }
+                    }
+                    f.appendChild(a);
+                    f.removeChild(a)
+                }
+                f.removeChild(c);
+                c = document.getElementById(a);
+                if (-1 === b.mime.indexOf("xml"))
+                    c.innerHTML = '<img src="data:' + b.mime + ";base64," + d.html + '" alt="carriots graph">';
+                else {
+                    c.innerHTML = d.html;
+                    var e = c.getElementsByTagName("script");
+                    e.length && h(e.length - 1)
+                }
+            }
+            ;
+            a();
+            "undefined" !== typeof carriotsOptions && "undefined" !== typeof carriotsOptions.refresh && !isNaN(parseInt(carriotsOptions.refresh)) && 9 < carriotsOptions.refresh && setInterval(a, 1E3 * parseInt(carriotsOptions.refresh))
+        }
+    })()
+})();
+
+</script>
 <script>
     var carriots = {
     'apikey' : '5a9f90c95462f8ccab348b5cd85168db0cacbe7e2c64323ed8ec4c72f8440104',
@@ -28,6 +95,6 @@
      'query[device]': 'yun@memolipd',
     'query[sort]': '_id',
 	'query[order]': 'desc',
-	'query[max]': '20'
+	'query[max]': '200'
 	};
 </script>
